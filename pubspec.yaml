@@ -1,6 +1,6 @@
 name: jeomechu
-description: A new Flutter project.
-publish_to: 'none'
+description: Jeomechu project.
+publish_to: 'yangwenry'
 version: 0.1.0
 
 environment:
@@ -17,3 +17,25 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts: 
+    - family: Inter
+      fonts: 
+        - asset: assets/fonts/Inter_18pt-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Inter_18pt-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Inter_18pt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter_18pt-SemiBold.ttf
+          weight: 600  
+        - asset: assets/fonts/Inter_18pt-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter_18pt-Regular.ttf
+          weight: 400  
+        - asset: assets/fonts/Inter_18pt-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Inter_18pt-ExtraLight.ttf
+          weight: 200  
+        - asset: assets/fonts/Inter_18pt-Thin.ttf
+          weight: 100
