@@ -4,6 +4,6 @@ A new Flutter project.
 
 --- 
 참가자 
-* yangwenry
+* yangwenry@gmail.com
 * jeongmi
 * soyun 
