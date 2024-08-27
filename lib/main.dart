@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jeomechu/screen/main_screen.dart';
+import 'package:jeomechu/screen/login_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -18,15 +18,30 @@ void main() {
         brightness: Brightness.light,
       ),
       textTheme: const TextTheme(
-        displaySmall: TextStyle(
+        displayMedium: TextStyle(
           fontSize: 35,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w700,
           fontStyle: FontStyle.normal,
           color: Colors.white,
         ),
+        headlineMedium: TextStyle(
+          fontSize: 40,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w800,
+          fontStyle: FontStyle.normal,
+          color: Colors.black,
+        ),
+        bodySmall: TextStyle(
+          fontSize: 13,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w400,
+          fontStyle: FontStyle.normal,
+          color: Colors.black,
+        ),
       ),
     ),
-    home: const MainScreen(),
+    // home: const MainScreen(),
+    home: const LoginScreen(),
   ));
 }
