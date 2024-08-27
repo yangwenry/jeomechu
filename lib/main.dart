@@ -18,7 +18,7 @@ void main() {
         brightness: Brightness.light,
       ),
       textTheme: const TextTheme(
-        displayLarge: TextStyle(
+        displaySmall: TextStyle(
           fontSize: 35,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w700,
