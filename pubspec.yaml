@@ -39,3 +39,6 @@ flutter:
           weight: 200  
         - asset: assets/fonts/Inter_18pt-Thin.ttf
           weight: 100
+  assets: 
+    - assets/images/      
+
