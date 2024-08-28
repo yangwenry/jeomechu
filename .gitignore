@@ -42,3 +42,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# vscode 설정파일 
+*.lock
+*.cc
+*.cmake
+*.swift
+launch.json

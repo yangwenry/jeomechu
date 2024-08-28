@@ -1,8 +1,30 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../const/login_platform.dart';
+import 'main_screen.dart';
+
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isAuthorized = false;
+  LoginPlatform _loginPlatform = LoginPlatform.none;
+  //flutter_secure_storage 사용을 위한 초기화 작업
+  static const storage = FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +61,22 @@ class LoginScreen extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          SignInButton(
-            Buttons.googleDark,
-            text: "Continue with Google",
-            onPressed: signInWithGoogle,
-            padding: const EdgeInsets.all(5.0),
-            elevation: 3,
-          ),
+          if (_isAuthorized) ...<Widget>[
+            const Text('로그인되었습니다.'),
+            ElevatedButton(
+              child: const Text('Logout'),
+              onPressed: () => signOut(),
+            ),
+          ],
+          if (!_isAuthorized) ...<Widget>[
+            SignInButton(
+              Buttons.googleDark,
+              text: "Continue with Google",
+              onPressed: signInWithGoogle,
+              padding: const EdgeInsets.all(5.0),
+              elevation: 3,
+            ),
+          ],
           const SizedBox(
             height: 50,
           ),
@@ -63,17 +94,86 @@ class LoginScreen extends StatelessWidget {
             '점메추는 처음이신가요?',
             style: Theme.of(context).textTheme.bodySmall,
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-              '회원가입',
-              style: fontStyleJoin,
+          if (!_isAuthorized)
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: TextButton(
+                onPressed: signInWithGoogle,
+                child: Text('회원가입', style: fontStyleJoin),
+              ),
             ),
-          ),
         ],
       ),
     );
   }
 
-  void signInWithGoogle() {}
+  void signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser != null) {
+      print('name = ${googleUser.displayName}');
+      print('email = ${googleUser.email}');
+      print('id = ${googleUser.id}');
+
+      saveStorage(googleUser);
+
+      setState(() {
+        _loginPlatform = LoginPlatform.google;
+        _isAuthorized = true;
+      });
+
+      moveToHomeScreen();
+    }
+  }
+
+  void moveToHomeScreen() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainScreen(),
+        ));
+  }
+
+  void signOut() async {
+    print('logout 실행');
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    switch (_loginPlatform) {
+      case LoginPlatform.facebook:
+        // await FacebookAuth.instance.logOut();
+        break;
+      case LoginPlatform.google:
+        // 추가
+        await GoogleSignIn().signOut();
+        break;
+      case LoginPlatform.kakao:
+        break;
+      case LoginPlatform.naver:
+        break;
+      case LoginPlatform.apple:
+        break;
+      case LoginPlatform.none:
+        break;
+    }
+
+    storage.delete(key: "login");
+
+    setState(() {
+      _loginPlatform = LoginPlatform.none;
+      _isAuthorized = false;
+    });
+  }
+
+  void saveStorage(GoogleSignInAccount googleUser) async {
+    // json string
+    final googleUserMap = {};
+    googleUserMap["id"] = googleUser.id;
+    googleUserMap["email"] = googleUser.email;
+    googleUserMap["displayName"] = googleUser.displayName;
+    final googleUserJsonStr = jsonEncode(googleUserMap);
+    //print('googleUserJsonStr : $googleUserJsonStr');
+
+    await storage.write(key: "login", value: googleUserJsonStr);
+  }
 }

@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   sign_in_button: ^3.0.0  
+  google_sign_in: ^6.1.6
+  flutter_secure_storage: ^8.1.0
 
 dev_dependencies:
   flutter_test:
