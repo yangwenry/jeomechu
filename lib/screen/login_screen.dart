@@ -141,11 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToHomeScreen() {
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => const MainScreen(),
-    //     ));
+    Navigator.pushNamed(context, '/home');
   }
 
   void signOut() async {

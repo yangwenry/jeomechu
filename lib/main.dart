@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jeomechu/screen/home_screen.dart';
+import 'package:jeomechu/screen/login_screen.dart';
 import 'package:jeomechu/screen/title_screen.dart';
 
 void main() {
@@ -42,5 +44,11 @@ void main() {
       ),
     ),
     home: const TitleScreen(),
+    routes: {
+      '/title': (context) => const TitleScreen(),
+      '/login': (context) => const LoginScreen(),
+      '/home': (context) => const HomeScreen(),
+    },
+    initialRoute: '/title',
   ));
 }
