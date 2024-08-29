@@ -6,7 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../const/login_platform.dart';
-import 'main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isAuthorized = false;
   LoginPlatform _loginPlatform = LoginPlatform.none;
+  bool _loading = false;
   //flutter_secure_storage 사용을 위한 초기화 작업
   static const storage = FlutterSecureStorage();
 
@@ -63,10 +63,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           if (_isAuthorized) ...<Widget>[
             const Text('로그인되었습니다.'),
-            ElevatedButton(
-              child: const Text('Logout'),
-              onPressed: () => signOut(),
-            ),
+            if (_loading) const CircularProgressIndicator(),
+            if (!_loading)
+              ElevatedButton(
+                child: const Text('Logout'),
+                onPressed: () => signOut(),
+              ),
           ],
           if (!_isAuthorized) ...<Widget>[
             SignInButton(
@@ -104,6 +106,18 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
         ],
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '@Bkwinners',
+              style: Theme.of(context).textTheme.bodySmall,
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -127,16 +141,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToHomeScreen() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MainScreen(),
-        ));
+    // Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => const MainScreen(),
+    //     ));
   }
 
   void signOut() async {
     print('logout 실행');
 
+    setState(() {
+      _loading = true;
+    });
     await Future.delayed(const Duration(seconds: 1));
 
     switch (_loginPlatform) {
@@ -162,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _loginPlatform = LoginPlatform.none;
       _isAuthorized = false;
+      _loading = false;
     });
   }
 
