@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class TitleScreen extends StatelessWidget {
+  const TitleScreen({super.key});
 
   final isLogin = false;
 

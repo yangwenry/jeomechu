@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jeomechu/screen/login_screen.dart';
+import 'package:jeomechu/screen/title_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -41,7 +41,6 @@ void main() {
         ),
       ),
     ),
-    // home: const MainScreen(),
-    home: const LoginScreen(),
+    home: const TitleScreen(),
   ));
 }
