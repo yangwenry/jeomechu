@@ -34,7 +34,14 @@ void main() {
           fontStyle: FontStyle.normal,
           color: Colors.black,
         ),
-        bodySmall: TextStyle(
+        headlineSmall: TextStyle(
+          fontSize: 30,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w800,
+          fontStyle: FontStyle.normal,
+          color: Colors.black,
+        ),
+        bodyMedium: TextStyle(
           fontSize: 13,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w400,
@@ -43,12 +50,13 @@ void main() {
         ),
       ),
     ),
+    debugShowCheckedModeBanner: false,
     home: const TitleScreen(),
     routes: {
       '/title': (context) => const TitleScreen(),
       '/login': (context) => const LoginScreen(),
       '/home': (context) => const HomeScreen(),
     },
-    initialRoute: '/title',
+    initialRoute: '/home',
   ));
 }

@@ -28,9 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle fontStyleJoin = Theme.of(context)
+    TextStyle styleMemberJoin = Theme.of(context)
         .textTheme
-        .bodySmall!
+        .bodyMedium!
         .copyWith(color: const Color(0xff4285F4), fontWeight: FontWeight.w700);
 
     return Scaffold(
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Text(
             '점메추는 구글메일로 로그인이 가능해요.',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(
             height: 40,
@@ -94,14 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Text(
             '점메추는 처음이신가요?',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
           if (!_isAuthorized)
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: TextButton(
                 onPressed: signInWithGoogle,
-                child: Text('회원가입', style: fontStyleJoin),
+                child: Text('회원가입', style: styleMemberJoin),
               ),
             ),
         ],
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Text(
               '@Bkwinners',
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodyMedium,
             )
           ],
         ),
@@ -188,6 +188,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final googleUserJsonStr = jsonEncode(googleUserMap);
     //print('googleUserJsonStr : $googleUserJsonStr');
 
-    await storage.write(key: "login", value: googleUserJsonStr);
+    await storage.write(key: "loginUser", value: googleUserJsonStr);
+    await storage.write(key: "userId", value: googleUser.id);
+    await storage.write(key: "userEmail", value: googleUser.email);
+    await storage.write(key: "userName", value: googleUser.displayName);
   }
 }
