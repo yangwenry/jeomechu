@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToHomeScreen() {
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamed(context, '/title');
   }
 
   void signOut() async {
@@ -189,8 +189,8 @@ class _LoginScreenState extends State<LoginScreen> {
     //print('googleUserJsonStr : $googleUserJsonStr');
 
     await storage.write(key: "loginUser", value: googleUserJsonStr);
-    await storage.write(key: "userId", value: googleUser.id);
-    await storage.write(key: "userEmail", value: googleUser.email);
-    await storage.write(key: "userName", value: googleUser.displayName);
+    // await storage.write(key: "userId", value: googleUser.id);
+    // await storage.write(key: "userEmail", value: googleUser.email);
+    // await storage.write(key: "userName", value: googleUser.displayName);
   }
 }

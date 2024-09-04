@@ -19,29 +19,43 @@ void main() {
         onSurface: Color(0xFF241E30),
         brightness: Brightness.light,
       ),
-      textTheme: const TextTheme(
-        displayMedium: TextStyle(
+      textTheme: TextTheme(
+        displayMedium: const TextStyle(
           fontSize: 35,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w700,
           fontStyle: FontStyle.normal,
           color: Colors.white,
         ),
-        headlineMedium: TextStyle(
+        displaySmall: TextStyle(
+          fontSize: 30,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w700,
+          fontStyle: FontStyle.normal,
+          color: Colors.white,
+          shadows: <Shadow>[
+            Shadow(
+              blurRadius: 15.0,
+              color: Colors.black.withOpacity(0.5),
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        headlineMedium: const TextStyle(
           fontSize: 40,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w800,
           fontStyle: FontStyle.normal,
           color: Colors.black,
         ),
-        headlineSmall: TextStyle(
+        headlineSmall: const TextStyle(
           fontSize: 30,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w800,
           fontStyle: FontStyle.normal,
           color: Colors.black,
         ),
-        bodyMedium: TextStyle(
+        bodyMedium: const TextStyle(
           fontSize: 13,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w400,
@@ -57,6 +71,6 @@ void main() {
       '/login': (context) => const LoginScreen(),
       '/home': (context) => const HomeScreen(),
     },
-    initialRoute: '/home',
+    initialRoute: '/title',
   ));
 }

@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jeomechu/widget/home_button.dart';
+import 'package:jeomechu/widget/home_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,16 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const storage = FlutterSecureStorage();
-  bool isLogin = false;
-  String userEmail = "";
-  String userId = "";
-
-  Future<String> getUser() async {
-    final loginUser = await storage.read(key: 'loginUser');
-    if (loginUser == null) return "";
-    return loginUser;
-  }
+  bool _loading = false;
 
   @override
   void initState() {
@@ -39,6 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  void showLoadingBar(bool loading) {
+    setState(() {
+      _loading = loading;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,19 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.pushNamed(context, '/home');
           },
         ),
+        elevation: 0,
       ),
-      endDrawer: FutureBuilder<String>(
-        future: getUser(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            print('data: ${snapshot.data}');
-            final loginUser = jsonDecode(snapshot.data!);
-            userEmail = loginUser['email'];
-            userId = loginUser['id'];
-          }
-          return renderLoginDrawer();
-        },
-      ),
+      endDrawer: HomeDrawer(showLoadingBar: showLoadingBar),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(children: [
@@ -70,99 +56,29 @@ class _HomeScreenState extends State<HomeScreen> {
             alignment: Alignment.topLeft,
             child: Text(
               '원하는 옵션\n선택하기',
-              style: Theme.of(context).textTheme.displayMedium,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextButton(
-                onPressed: () => (),
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Text(
-                        '메뉴를\n추천 받기',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                      Text(
-                        '근처에 있는 식당들 메뉴 중\n하나를 추천해드려요.',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                ),
+          if (_loading)
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: CircularProgressIndicator(
+                color: Colors.white,
               ),
-            ],
-          )
+            ),
+          if (!_loading)
+            const Column(
+              children: [
+                HomeButton(
+                    title: '메뉴를\n추천 받기', body: '근처에 있는 식당들 메뉴 중\n하나를 추천해드려요.'),
+                HomeButton(
+                    title: '새로 생긴 곳\n알아보기',
+                    body: '근처에 있는 식당들 중 새로 오픈한 곳을\n알려드려요.'),
+                HomeButton(
+                    title: '지도로\n근처 맛집 찾기', body: '지도를 보며 맛집을 고를 수 있어요.'),
+              ],
+            )
         ]),
-      ),
-    );
-  }
-
-  Widget renderLoginDrawer() {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          UserAccountsDrawerHeader(
-            currentAccountPicture: const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avator.png'),
-              backgroundColor: Colors.white,
-            ),
-            accountName: Text(userId),
-            accountEmail: Text(userEmail),
-            onDetailsPressed: () {
-              print('arrow is clicked');
-            },
-            otherAccountsPictures: const [
-              CircleAvatar(
-                backgroundImage: AssetImage('assets/images/captin_talyor.jpg'),
-                backgroundColor: Colors.white,
-              ),
-            ],
-            decoration: BoxDecoration(
-                color: Colors.red[400],
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(40.0),
-                  bottomRight: Radius.circular(40.0),
-                )),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.home,
-              color: Colors.grey[850],
-            ),
-            title: const Text('Home'),
-            onTap: () {
-              print('Home is clicked !');
-            },
-            trailing: const Icon(Icons.add),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.settings,
-              color: Colors.grey[850],
-            ),
-            title: const Text('Setting'),
-            onTap: () {
-              print('Setting is clicked !');
-            },
-            trailing: const Icon(Icons.add),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.question_answer,
-              color: Colors.grey[850],
-            ),
-            title: const Text('Q&A'),
-            onTap: () {
-              print('Q&A is clicked !');
-            },
-            trailing: const Icon(Icons.add),
-          ),
-        ],
       ),
     );
   }
