@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jeomechu/service/login_service.dart';
 
 class HomeDrawer extends StatefulWidget {
   final Function showLoadingBar;
@@ -13,32 +12,19 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
-  static const storage = FlutterSecureStorage();
   String userEmail = "";
   String userId = "";
 
-  Future<String> getUser() async {
-    final loginUser = await storage.read(key: 'loginUser');
-    if (loginUser == null) return "";
-    return loginUser;
-  }
-
   Future<void> signOut() async {
     widget.showLoadingBar(true);
-    print('logout 실행');
-
-    await Future.delayed(const Duration(seconds: 1));
-
-    await GoogleSignIn().signOut();
-    await storage.delete(key: "loginUser");
-
+    await LoginService().signOutWithGoogle();
     widget.showLoadingBar(false);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
-      future: getUser(),
+      future: LoginService().getUser(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print('data: ${snapshot.data}');

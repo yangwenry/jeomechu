@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jeomechu/service/login_service.dart';
 import 'package:sign_in_button/sign_in_button.dart';
-
-import '../const/login_platform.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _isAuthorized = false;
-  LoginPlatform _loginPlatform = LoginPlatform.none;
   bool _loading = false;
   //flutter_secure_storage 사용을 위한 초기화 작업
   static const storage = FlutterSecureStorage();
@@ -74,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SignInButton(
               Buttons.googleDark,
               text: "Continue with Google",
-              onPressed: signInWithGoogle,
+              onPressed: signIn,
               padding: const EdgeInsets.all(5.0),
               elevation: 3,
             ),
@@ -100,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: TextButton(
-                onPressed: signInWithGoogle,
+                onPressed: signIn,
                 child: Text('회원가입', style: styleMemberJoin),
               ),
             ),
@@ -121,18 +117,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  void signIn() async {
+    final GoogleSignInAccount? googleUser =
+        await LoginService().signInWithGoggle();
 
     if (googleUser != null) {
-      print('name = ${googleUser.displayName}');
-      print('email = ${googleUser.email}');
-      print('id = ${googleUser.id}');
-
-      saveStorage(googleUser);
-
       setState(() {
-        _loginPlatform = LoginPlatform.google;
         _isAuthorized = true;
       });
 
@@ -145,52 +135,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void signOut() async {
-    print('logout 실행');
-
     setState(() {
       _loading = true;
     });
     await Future.delayed(const Duration(seconds: 1));
 
-    switch (_loginPlatform) {
-      case LoginPlatform.facebook:
-        // await FacebookAuth.instance.logOut();
-        break;
-      case LoginPlatform.google:
-        // 추가
-        await GoogleSignIn().signOut();
-        break;
-      case LoginPlatform.kakao:
-        break;
-      case LoginPlatform.naver:
-        break;
-      case LoginPlatform.apple:
-        break;
-      case LoginPlatform.none:
-        break;
-    }
-
-    storage.delete(key: "login");
+    await LoginService().signOutWithGoogle();
 
     setState(() {
-      _loginPlatform = LoginPlatform.none;
       _isAuthorized = false;
       _loading = false;
     });
-  }
-
-  void saveStorage(GoogleSignInAccount googleUser) async {
-    // json string
-    final googleUserMap = {};
-    googleUserMap["id"] = googleUser.id;
-    googleUserMap["email"] = googleUser.email;
-    googleUserMap["displayName"] = googleUser.displayName;
-    final googleUserJsonStr = jsonEncode(googleUserMap);
-    //print('googleUserJsonStr : $googleUserJsonStr');
-
-    await storage.write(key: "loginUser", value: googleUserJsonStr);
-    // await storage.write(key: "userId", value: googleUser.id);
-    // await storage.write(key: "userEmail", value: googleUser.email);
-    // await storage.write(key: "userName", value: googleUser.displayName);
   }
 }
