@@ -11,12 +11,12 @@ dependencies:
     sdk: flutter
   sign_in_button: ^3.0.0  
   google_sign_in: ^6.1.6
-  flutter_secure_storage: ^8.1.0
+  flutter_secure_storage: ^9.2.2  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true

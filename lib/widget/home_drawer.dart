@@ -50,6 +50,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
         .copyWith(fontWeight: FontWeight.w800);
 
     return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -58,8 +59,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
               backgroundImage: AssetImage('assets/images/avator.png'),
               backgroundColor: Colors.white,
             ),
-            accountName: Text(userId),
-            accountEmail: Text(userEmail),
+            accountName:
+                Text(userId, style: const TextStyle(color: Colors.white)),
+            accountEmail:
+                Text(userEmail, style: const TextStyle(color: Colors.white)),
             onDetailsPressed: () {
               print('arrow is clicked');
             },
@@ -79,8 +82,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
           ListTile(
             title: Text('설정', style: stylebodyBold),
           ),
-          const Divider(
+          Divider(
             thickness: 1,
+            color: Colors.grey[600]!.withOpacity(0.5),
           ),
           ListTile(
             leading: Icon(
@@ -104,8 +108,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
             },
             trailing: const Icon(Icons.chevron_right_outlined),
           ),
-          const Divider(
+          Divider(
             thickness: 1,
+            color: Colors.grey[600]!.withOpacity(0.5),
           ),
           ListTile(
             leading: Icon(
@@ -131,14 +136,16 @@ class _HomeDrawerState extends State<HomeDrawer> {
         .copyWith(fontWeight: FontWeight.w800);
 
     return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           ListTile(
             title: Text('설정', style: stylebodyBold),
           ),
-          const Divider(
+          Divider(
             thickness: 1,
+            color: Colors.grey[600]!.withOpacity(0.5),
           ),
           ListTile(
             leading: Icon(

@@ -12,23 +12,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _loading = false;
 
-  @override
-  void initState() {
-    // Future.delayed(Duration.zero, () async {
-    //   final loginUserStr = await getUser();
-    //   if (loginUserStr != "") {
-    //     final loginUser = jsonDecode(loginUserStr);
-    //     userEmail = loginUser["email"];
-    //     userName = loginUser["displayName"];
-    //     isLogin = true;
-    //   } else {
-    //     isLogin = false;
-    //   }
-    //   print('userEmail: $userEmail');
-    // });
-    super.initState();
-  }
-
   void showLoadingBar(bool loading) {
     setState(() {
       _loading = loading;

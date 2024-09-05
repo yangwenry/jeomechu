@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jeomechu/service/login_service.dart';
 import 'package:sign_in_button/sign_in_button.dart';
@@ -15,7 +14,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isAuthorized = false;
   bool _loading = false;
   //flutter_secure_storage 사용을 위한 초기화 작업
-  static const storage = FlutterSecureStorage();
 
   @override
   void initState() {
@@ -30,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .copyWith(color: const Color(0xff4285F4), fontWeight: FontWeight.w700);
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -10,15 +10,23 @@ void main() {
       colorScheme: const ColorScheme(
         primary: Color(0xfffe6b00),
         onPrimary: Color(0xffffffff),
-        secondary: Color(0xfffe6b00),
-        onSecondary: Color(0xfffe6b00),
+        secondary: Color(0xffffffff),
+        onSecondary: Color(0xFF241E30),
         error: Colors.redAccent,
         onError: Colors.white,
-        background: Color(0xFFE6EBEB),
-        onBackground: Colors.white,
-        surface: Color(0xFFFAFBFB),
-        onSurface: Color(0xFF241E30),
+        surface: Color(0xfffe6b00),
+        onSurface: Color(0xffffffff),
         brightness: Brightness.light,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all<Color>(
+            const Color(0xfffe6b00),
+          ), //button color
+          foregroundColor: WidgetStateProperty.all<Color>(
+            const Color(0xffffffff),
+          ),
+        ),
       ),
       textTheme: TextTheme(
         displayMedium: const TextStyle(
