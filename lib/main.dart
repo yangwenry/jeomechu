@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jeomechu/screen/home_screen.dart';
 import 'package:jeomechu/screen/login_screen.dart';
 import 'package:jeomechu/screen/title_screen.dart';
+import 'package:jeomechu/screen/today_menu_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -41,22 +42,36 @@ void main() {
             ),
           ],
         ),
-        headlineMedium: const TextStyle(
+        headlineLarge: const TextStyle(
           fontSize: 40,
           fontFamily: 'Inter',
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
           fontStyle: FontStyle.normal,
           color: Colors.black,
         ),
-        headlineSmall: const TextStyle(
+        headlineMedium: const TextStyle(
           fontSize: 30,
           fontFamily: 'Inter',
-          fontWeight: FontWeight.w800,
+          fontWeight: FontWeight.w700,
+          fontStyle: FontStyle.normal,
+          color: Colors.black,
+        ),
+        titleMedium: const TextStyle(
+          fontSize: 18,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w700,
           fontStyle: FontStyle.normal,
           color: Colors.black,
         ),
         bodyMedium: const TextStyle(
           fontSize: 13,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w400,
+          fontStyle: FontStyle.normal,
+          color: Colors.black,
+        ),
+        bodySmall: const TextStyle(
+          fontSize: 10,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w400,
           fontStyle: FontStyle.normal,
@@ -70,6 +85,7 @@ void main() {
       '/title': (context) => const TitleScreen(),
       '/login': (context) => const LoginScreen(),
       '/home': (context) => const HomeScreen(),
+      '/today_menu': (context) => const TodayMenuScreen(),
     },
     initialRoute: '/title',
   ));

@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Text(
             '로그인',
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
           Text(
             '점메추는 구글메일로 로그인이 가능해요.',

@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 class HomeButton extends StatelessWidget {
   final String title;
   final String body;
+  final VoidCallback onPressed;
 
-  const HomeButton({super.key, required this.title, required this.body});
+  const HomeButton(
+      {super.key,
+      required this.title,
+      required this.body,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => {},
+      onPressed: onPressed,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         //margin: const EdgeInsets.symmetric(vertical: 3),
@@ -31,7 +36,7 @@ class HomeButton extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(
                 height: 10,

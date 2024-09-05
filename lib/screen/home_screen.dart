@@ -67,19 +67,28 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           if (!_loading)
-            const Column(
+            Column(
               children: [
                 HomeButton(
-                    title: '메뉴를\n추천 받기', body: '근처에 있는 식당들 메뉴 중\n하나를 추천해드려요.'),
+                    title: '메뉴를\n추천 받기',
+                    body: '근처에 있는 식당들 메뉴 중\n하나를 추천해드려요.',
+                    onPressed: moveToTodayMenuScreen),
                 HomeButton(
                     title: '새로 생긴 곳\n알아보기',
-                    body: '근처에 있는 식당들 중 새로 오픈한 곳을\n알려드려요.'),
+                    body: '근처에 있는 식당들 중 새로 오픈한 곳을\n알려드려요.',
+                    onPressed: () => ()),
                 HomeButton(
-                    title: '지도로\n근처 맛집 찾기', body: '지도를 보며 맛집을 고를 수 있어요.'),
+                    title: '지도로\n근처 맛집 찾기',
+                    body: '지도를 보며 맛집을 고를 수 있어요.',
+                    onPressed: () => ()),
               ],
             )
         ]),
       ),
     );
+  }
+
+  void moveToTodayMenuScreen() {
+    Navigator.pushNamed(context, '/today_menu');
   }
 }
