@@ -1,4 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:jeomechu/widget/image_slider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../service/login_service.dart';
 import '../widget/home_drawer.dart';
@@ -14,6 +17,13 @@ class _TodayMenuScreenState extends State<TodayMenuScreen> {
   bool _loading = false;
   bool likedVisit = false;
   bool likedMenu = false;
+  // image slider용
+  final images = [
+    'assets/images/dish01.png',
+    'assets/images/dish02.jpg',
+    'assets/images/dish03.jpg',
+    'assets/images/dish04.jpg'
+  ];
 
   void showLoadingBar(bool loading) {
     setState(() {
@@ -75,13 +85,10 @@ class _TodayMenuScreenState extends State<TodayMenuScreen> {
   onPressedSave() {
     // api로 좋아하는 메뉴 저장
 
-    // close 팝업
+    // 팝업 닫기
     Navigator.pop(context);
 
-    // 좋아하는 메뉴라고 하면 다른 메뉴추천 팝업
-    if (likedMenu) {
-      showRecommendDialog();
-    }
+    showRecommendDialog();
   }
 
   void showRecommendDialog() {
@@ -162,24 +169,7 @@ class _TodayMenuScreenState extends State<TodayMenuScreen> {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    blurRadius: 10,
-                    offset: const Offset(2, 3),
-                  )
-                ],
-              ),
-              child: Image.asset(
-                'assets/images/dish01.png',
-                width: MediaQuery.sizeOf(context).width,
-                height: 280,
-                fit: BoxFit.cover,
-              ),
-            ),
+            ImageSlider(images: images),
             if (_loading) const CircularProgressIndicator(),
             if (!_loading)
               Column(

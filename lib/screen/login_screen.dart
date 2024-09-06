@@ -130,7 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void moveToHomeScreen() {
-    Navigator.pushNamed(context, '/title');
+    //Navigator.pushNamed(context, '/title');
+    Navigator.pop(context);
   }
 
   void signOut() async {

@@ -154,6 +154,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             ),
             title: Text('로그인 하기', style: stylebody),
             onTap: () {
+              Navigator.pop(context);
               Navigator.pushNamed(context, '/login');
             },
             trailing: const Icon(Icons.chevron_right_outlined),
