@@ -1,7 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:jeomechu/widget/image_slider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../service/login_service.dart';
 import '../widget/home_drawer.dart';
